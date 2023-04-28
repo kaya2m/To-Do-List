@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Model } from './model';
+import { Model, TodoItem } from './model';
 
 @Component({
   selector: 'app-root',
@@ -8,11 +8,22 @@ import { Model } from './model';
 })
 export class AppComponent {
   model=new Model();
+  isDisplay=false;
+
+
   getName(){
     return this.model.user;
   };
  getItem(){
-  return this.model.item;
+  if(this.isDisplay){
+    return this.model.item;
+  }
+  return this.model.item.filter(item=>!item.action);
+ }
+
+ addItem(value:string){
+  if(value!="")
+  this.model.item.push(new TodoItem(value,false));
  }
 
 }
